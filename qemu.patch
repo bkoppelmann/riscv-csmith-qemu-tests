@@ -1,0 +1,14 @@
+diff --git a/target-riscv/op_helper.c b/target-riscv/op_helper.c
+index 11d23d585d..1fe0022cb1 100644
+--- a/target-riscv/op_helper.c
++++ b/target-riscv/op_helper.c
+@@ -37,6 +37,9 @@ inline void QEMU_NORETURN do_raise_exception_err(CPURISCVState *env,
+ {
+     CPUState *cs = CPU(riscv_env_get_cpu(env));
+     qemu_log_mask(CPU_LOG_INT, "%s: %d\n", __func__, exception);
++    if (exception == RISCV_EXCP_BREAKPOINT) {
++        exit(0);
++    }
+     cs->exception_index = exception;
+     cpu_loop_exit_restore(cs, pc);
+ }
