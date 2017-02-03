@@ -77,7 +77,7 @@ qemu/build.ok:
 test.c: csmith-2.2.0/build.ok
 	echo "integer size = 4" > platform.info
 	echo "pointer size = 4" >> platform.info
-	$(CSMITH_DIR)csmith --no-packed-struct -o test.c
+	$(CSMITH_DIR)/bin/csmith --no-packed-struct -o test.c
 	gawk '/Seed:/ {print$$2,$$3;}' test.c
 
 clean:
