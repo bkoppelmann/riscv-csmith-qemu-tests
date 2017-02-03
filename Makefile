@@ -1,7 +1,7 @@
 # configure these
 RISCV_TOOLS_DIR = $(RISCV)
 QEMU_URL = https://github.com/riscv/riscv-qemu.git
-QEMU_COMMIT = /home/bastian/coding/riscv-csmith-qemu-tests/qemu/install/bin
+QEMU_COMMIT = e28f4c8434980fde5bc131acd33c54b8ba05d378
 QEMU_BRANCH = master
 
 CSMITH_DIR = $(shell pwd)/csmith-2.2.0/install
@@ -24,12 +24,12 @@ help:
 
 qemu32: test_ref32 test32.elf qemu/build.ok
 	timeout 10 ./test_ref32 > output_ref.txt && cat output_ref.txt
-	$(QEMU32) -M sifive -nographic -kernel test32.elf > output_sim.txt
+	timeout 100 $(QEMU32) -M sifive -nographic -kernel test32.elf > output_sim.txt
 	diff -u output_ref.txt output_sim.txt
 
 qemu64: test_ref64 test64.elf qemu/build.ok
 	timeout 10 ./test_ref64 > output_ref.txt && cat output_ref.txt
-	$(QEMU64) -M sifive -nographic -kernel test64.elf > output_sim.txt
+	timeout 100 $(QEMU64) -M sifive -nographic -kernel test64.elf > output_sim.txt
 	diff -u output_ref.txt output_sim.txt
 
 start32.elf: start.S start.ld
