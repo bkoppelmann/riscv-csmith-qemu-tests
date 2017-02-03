@@ -1,3 +1,20 @@
+diff --git a/hw/riscv/sifive_board.c b/hw/riscv/sifive_board.c
+index 00ffcf3d50..02c84a2341 100644
+--- a/hw/riscv/sifive_board.c
++++ b/hw/riscv/sifive_board.c
+@@ -148,9 +148,9 @@ static void riscv_sifive_board_init(MachineState *args)
+ 
+     /* boot rom */
+     memory_region_init_ram(boot_rom, NULL, "riscv_sifive_board.bootrom",
+-                           0x10000, &error_fatal);
++                           0x30000, &error_fatal);
+     vmstate_register_ram_global(boot_rom);
+-    memory_region_set_readonly(boot_rom, true);
++    //memory_region_set_readonly(boot_rom, true);
+     memory_region_add_subregion(system_memory, 0x0, boot_rom);
+ 
+     /* allocate dummy ram region for "nop" IPI */
+
 diff --git a/target-riscv/op_helper.c b/target-riscv/op_helper.c
 index 11d23d585d..1fe0022cb1 100644
 --- a/target-riscv/op_helper.c
