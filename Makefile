@@ -1,8 +1,8 @@
 # configure these
 RISCV_TOOLS_DIR = $(RISCV)
-QEMU_URL = https://github.com/bkoppelmann/riscv-qemu.git
-QEMU_COMMIT = cdbaabb09d8478ba4cbe2205e26b9576d0a961db
-QEMU_BRANCH = rv-compressed
+QEMU_URL = https://github.com/riscv/riscv-qemu.git
+QEMU_COMMIT = /home/bastian/coding/riscv-csmith-qemu-tests/qemu/install/bin
+QEMU_BRANCH = master
 
 CSMITH_DIR = $(shell pwd)/csmith-2.2.0/install
 QEMU_DIR = $(shell pwd)/qemu
@@ -77,7 +77,7 @@ qemu/build.ok:
 test.c: csmith-2.2.0/build.ok
 	echo "integer size = 4" > platform.info
 	echo "pointer size = 4" >> platform.info
-	csmith --no-packed-struct -o test.c
+	$(CSMITH_DIR)csmith --no-packed-struct -o test.c
 	gawk '/Seed:/ {print$$2,$$3;}' test.c
 
 clean:
